@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Todo List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <h6>Tambah Data</h6>
+  <ion-item>
+    <ion-input
+      label="Title"
+      labelPlacement="stacked"
+      placeholder="Input Title"
+      [(ngModel)]="inputTitle"
+    ></ion-input>
+  </ion-item>
+  <ion-item class="ion-margin-bottom">
+    <ion-textarea
+      label="Description"
+      labelPlacement="stacked"
+      placeholder="Input Description"
+      [(ngModel)]="inputDescription"
+    ></ion-textarea>
+  </ion-item>
+  <ion-button (click)="onSave()" expand="block" class="ion-margin-bottom"
+    >Tambah Data</ion-button
+  >
+
+  <h6 class="ion-margin-top" style="margin-top: 30px">Daftar Todo List</h6>
+  <ion-item *ngFor="let row of data">
+    <ion-label>
+      <h2>{{ row.title }}</h2>
+      <p>{{ row.description }}</p>
+    </ion-label>
+  </ion-item>
+</ion-content>
