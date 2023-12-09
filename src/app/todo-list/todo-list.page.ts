@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
@@ -15,29 +15,14 @@ export class TodoListPage implements OnInit {
   public inputTitle: string = '';
   public inputDescription: string = '';
 
+  public loading: boolean = true;
+  public formLoading: boolean = false;
   constructor(
     private http: HttpClient,
+    private loadingController: LoadingController,
     private toastController: ToastController,
     private alertController: AlertController
-  ) {
-    // this.data = [
-    //   {
-    //     title: 'Bangun Pagi',
-    //     description: 'Bangun pagi sholat subuh',
-    //     is_done: false,
-    //   },
-    //   {
-    //     title: 'Sarapan',
-    //     description: 'Jam 6 sarapan sebelum berangkat',
-    //     is_done: false,
-    //   },
-    //   {
-    //     title: 'Bersih bersih',
-    //     description: 'Bersihin kamar tidur jam 07:00',
-    //     is_done: false,
-    //   },
-    // ];
-  }
+  ) {}
 
   ngOnInit() {
     this.getAllData();
@@ -54,6 +39,7 @@ export class TodoListPage implements OnInit {
     ).then((result) => {
       if (result.success == true) {
         this.data = result.rows;
+        this.loading = false;
       }
     });
   }
@@ -74,18 +60,46 @@ export class TodoListPage implements OnInit {
       return;
     }
 
+    this.formLoading = true;
+    //Payload = Data yang akan kirim ke API
     let newData = {
       title: this.inputTitle,
       description: this.inputDescription,
       is_done: false,
     };
 
-    this.data.unshift(newData);
-    this.inputTitle = '';
-    this.inputDescription = '';
+    //Simpan Data ke database
+    lastValueFrom(
+      this.http.post<any>('http://127.0.0.1:8000/api/todos', newData, {
+        headers: new HttpHeaders({
+          'Access-Control-Allow-Origin': '*',
+        }),
+      })
+    ).then(async (result) => {
+      //ketika request nya success
+      if (result.success == true) {
+        this.inputTitle = '';
+        this.inputDescription = '';
+        this.formLoading = false;
+        this.loading = true;
+        this.getAllData();
+
+        //Membuat Toast
+        const toast = await this.toastController.create({
+          message: result.message,
+          duration: 1500,
+          icon: 'checkmark',
+          color: 'success',
+          position: 'top',
+        });
+
+        // untuk menampilkan toast
+        await toast.present();
+      }
+    });
   }
 
-  async remove(index: number) {
+  async remove(index: number, id: number) {
     // membuat alert
     const alert = await this.alertController.create({
       header: 'Yakin mau hapus?',
@@ -100,8 +114,32 @@ export class TodoListPage implements OnInit {
         {
           text: 'Hapus',
           role: 'confirm',
-          handler: () => {
-            this.data.splice(index, 1);
+          handler: async () => {
+            //Hapus data dari database
+            //membuat loading terlebih dulu
+            const loading = await this.loadingController.create({
+              message: 'Mohon tunggu...',
+              mode: 'ios',
+            });
+            //tampilkan loading
+            await loading.present();
+
+            //kirim request ke server untuk menghapus data
+            lastValueFrom(
+              this.http.delete<any>('http://127.0.0.1:8000/api/todos/' + id, {
+                headers: new HttpHeaders({
+                  'Access-Control-Allow-Origin': '*',
+                }),
+                params: {},
+              })
+            ).then((result) => {
+              if (result.success == true) {
+                //update tampilan list untuk menghilangkan data sesuai dengan
+                //index yang dikirim
+                this.data.splice(index, 1);
+                loading.dismiss();
+              }
+            });
           },
         },
       ],

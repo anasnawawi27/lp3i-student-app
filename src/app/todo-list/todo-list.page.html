@@ -22,26 +22,37 @@
       [(ngModel)]="inputDescription"
     ></ion-textarea>
   </ion-item>
-  <ion-button (click)="onSave()" expand="block" class="ion-margin-bottom"
-    >Tambah Data</ion-button
+  <ion-button
+    [disabled]="formLoading == true"
+    (click)="onSave()"
+    expand="block"
+    class="ion-margin-bottom"
   >
+    Tambah Data
+    <ion-spinner *ngIf="formLoading == true" name="crescent"></ion-spinner>
+  </ion-button>
 
   <h6 class="ion-margin-top" style="margin-top: 30px">Daftar Todo List</h6>
-  <ion-spinner color="secondary"></ion-spinner>
-  <ion-item *ngFor="let row of data; let i = index">
-    <ion-checkbox
-      [(ngModel)]="row.is_done"
-      value="1"
-      slot="start"
-    ></ion-checkbox>
-    <ion-label>
-      <!-- Conditional Styling -->
-      <h2 [class.done]="row.is_done">{{ row.title }}</h2>
-      <p [class.done]="row.is_done">{{ row.description }}</p>
-    </ion-label>
+  <div *ngIf="loading == true" style="text-align: center">
+    <ion-spinner mode="ios" name="lines" color="secondary"></ion-spinner>
+  </div>
 
-    <ion-button (click)="remove(i)" slot="end" color="danger">
-      <ion-icon slot="icon-only" name="trash"></ion-icon>
-    </ion-button>
-  </ion-item>
+  <ng-container *ngIf="loading == false">
+    <ion-item *ngFor="let row of data; let i = index">
+      <ion-checkbox
+        [(ngModel)]="row.is_done"
+        value="1"
+        slot="start"
+      ></ion-checkbox>
+      <ion-label>
+        <!-- Conditional Styling -->
+        <h2 [class.done]="row.is_done">{{ row.title }}</h2>
+        <p [class.done]="row.is_done">{{ row.description }}</p>
+      </ion-label>
+
+      <ion-button (click)="remove(i, row.id)" slot="end" color="danger">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ng-container>
 </ion-content>
