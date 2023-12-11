@@ -9,18 +9,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'todo-list',
+    redirectTo: 'home',
     pathMatch: 'full',
-  },
-  {
-    path: 'profile',
-    loadChildren: () =>
-      import('./profile/profile.module').then((m) => m.ProfilePageModule),
-  },
-  {
-    path: 'todo-list',
-    loadChildren: () =>
-      import('./todo-list/todo-list.module').then((m) => m.TodoListPageModule),
   },
 ];
 

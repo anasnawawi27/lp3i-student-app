@@ -1,0 +1,18 @@
+ion-header {
+  ion-toolbar {
+    --background: #f0f0f0 !important;
+  }
+}
+
+ion-content {
+  --background: #f0f0f0 !important;
+}
+
+.card-input {
+  box-shadow: none;
+  margin: 10px 0;
+
+  ion-card-content {
+    padding: 10px;
+  }
+}

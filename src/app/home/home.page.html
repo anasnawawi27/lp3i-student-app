@@ -1,12 +1,181 @@
-<ion-header [translucent]="true">
+<ion-header mode="ios">
+  <div class="header-section">
+    <div class="greetings">
+      <small>Selamat Datang</small>
+      <h5>Anas Nawawi</h5>
+    </div>
+    <img src="assets/images/logo-lp3i-white.png" />
+  </div>
   <ion-toolbar>
-    <ion-title> Aplikasi Ionic Pertama </ion-title>
+    <ion-segment mode="ios" [(ngModel)]="segment">
+      <ion-segment-button value="student">
+        <ion-label>Data Mahasiswa</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="major">
+        <ion-label>Data Jurusan</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <h1>Halaman 1</h1>
-  <ion-button id="btn-purple" shape="round" mode="ios" routerLink="/profile"
-    >Pindah Halaman Profile</ion-button
+<ion-content class="ion-padding" [fullscreen]="true">
+  <ng-container *ngIf="segment == 'student'">
+    <h6 class="title-list">Data Mahasiswa LP3I Karawang</h6>
+
+    <ion-card class="card-list" mode="ios">
+      <ion-card-content>
+        <ion-item button lines="none">
+          <div class="item-section">
+            <ion-avatar aria-hidden="true" slot="start">
+              <img
+                alt=""
+                src="https://ionicframework.com/docs/img/demos/avatar.svg"
+              />
+            </ion-avatar>
+            <div class="data-section">
+              <p>Abdul Bahar</p>
+              <span>1122334455</span> &bullet; <span>Informatika</span>
+            </div>
+          </div>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="card-list" mode="ios">
+      <ion-card-content>
+        <ion-item button lines="none">
+          <div class="item-section">
+            <ion-avatar aria-hidden="true" slot="start">
+              <img
+                alt=""
+                src="https://ionicframework.com/docs/img/demos/avatar.svg"
+              />
+            </ion-avatar>
+            <div class="data-section">
+              <p>Abdul Bahar</p>
+              <span>1122334455</span> &bullet; <span>Informatika</span>
+            </div>
+          </div>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="card-list" mode="ios">
+      <ion-card-content>
+        <ion-item button lines="none">
+          <div class="item-section">
+            <ion-avatar aria-hidden="true" slot="start">
+              <img
+                alt=""
+                src="https://ionicframework.com/docs/img/demos/avatar.svg"
+              />
+            </ion-avatar>
+            <div class="data-section">
+              <p>Abdul Bahar</p>
+              <span>1122334455</span> &bullet; <span>Informatika</span>
+            </div>
+          </div>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="card-list" mode="ios">
+      <ion-card-content>
+        <ion-item button lines="none">
+          <div class="item-section">
+            <ion-avatar aria-hidden="true" slot="start">
+              <img
+                alt=""
+                src="https://ionicframework.com/docs/img/demos/avatar.svg"
+              />
+            </ion-avatar>
+            <div class="data-section">
+              <p>Abdul Bahar</p>
+              <span>1122334455</span> &bullet; <span>Informatika</span>
+            </div>
+          </div>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="card-list" mode="ios">
+      <ion-card-content>
+        <ion-item button lines="none">
+          <div class="item-section">
+            <ion-avatar aria-hidden="true" slot="start">
+              <img
+                alt=""
+                src="https://ionicframework.com/docs/img/demos/avatar.svg"
+              />
+            </ion-avatar>
+            <div class="data-section">
+              <p>Abdul Bahar</p>
+              <span>1122334455</span> &bullet; <span>Informatika</span>
+            </div>
+          </div>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="card-list" mode="ios">
+      <ion-card-content>
+        <ion-item button lines="none">
+          <div class="item-section">
+            <ion-avatar aria-hidden="true" slot="start">
+              <img
+                alt=""
+                src="https://ionicframework.com/docs/img/demos/avatar.svg"
+              />
+            </ion-avatar>
+            <div class="data-section">
+              <p>Abdul Bahar</p>
+              <span>1122334455</span> &bullet; <span>Informatika</span>
+            </div>
+          </div>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+  <ng-container *ngIf="segment == 'major'">
+    <h6 class="title-list">Data Jurusan LP3I Karawang</h6>
+    <ion-card class="card-list" mode="ios">
+      <ion-card-content>
+        <ion-item button lines="none">
+          <div class="item-section">
+            <div class="data-section">
+              <p>Informatika</p>
+            </div>
+          </div>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="card-list" mode="ios">
+      <ion-card-content>
+        <ion-item button lines="none">
+          <div class="item-section">
+            <div class="data-section">
+              <p>Management</p>
+            </div>
+          </div>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="card-list" mode="ios">
+      <ion-card-content>
+        <ion-item button lines="none">
+          <div class="item-section">
+            <div class="data-section">
+              <p>Accounting</p>
+            </div>
+          </div>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ion-fab
+    [routerLink]="'/home/'+ segment +'/form'"
+    slot="fixed"
+    vertical="bottom"
+    horizontal="end"
   >
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

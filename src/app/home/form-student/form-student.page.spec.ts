@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TodoListPage } from './todo-list.page';
+import { FormStudentPage } from './form-student.page';
 
-describe('TodoListPage', () => {
-  let component: TodoListPage;
-  let fixture: ComponentFixture<TodoListPage>;
+describe('FormStudentPage', () => {
+  let component: FormStudentPage;
+  let fixture: ComponentFixture<FormStudentPage>;
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(TodoListPage);
+    fixture = TestBed.createComponent(FormStudentPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
