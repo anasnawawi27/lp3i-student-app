@@ -1,0 +1,41 @@
+ion-content {
+  --background: #f0f0f0;
+}
+
+.heading-section {
+  text-align: center;
+  margin-bottom: 20px;
+  img {
+    height: 50px;
+  }
+
+  h5 {
+    margin: 0;
+  }
+}
+
+ion-card {
+  margin: 10px 0px;
+  box-shadow: none;
+  ion-card-content {
+    padding: 10px;
+  }
+}
+
+.redirect {
+  text-align: center;
+  span,
+  a {
+    font-size: 13px;
+  }
+
+  span {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  a {
+    font-weight: 500;
+    text-decoration: underline;
+  }
+}

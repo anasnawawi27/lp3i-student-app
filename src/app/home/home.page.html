@@ -22,114 +22,188 @@
   <ng-container *ngIf="segment == 'student'">
     <h6 class="title-list">Data Mahasiswa LP3I Karawang</h6>
 
-    <ion-card class="card-list" mode="ios">
-      <ion-card-content>
-        <ion-item button lines="none">
-          <div class="item-section">
-            <ion-avatar aria-hidden="true" slot="start">
-              <img
-                alt=""
-                src="https://ionicframework.com/docs/img/demos/avatar.svg"
-              />
-            </ion-avatar>
-            <div class="data-section">
-              <p>Abdul Bahar</p>
-              <span>1122334455</span> &bullet; <span>Informatika</span>
+    <!-- Loading Skeleton -->
+    <ng-container *ngIf="loading == true">
+      <ion-card class="card-list" mode="ios">
+        <ion-card-content>
+          <ion-list>
+            <ion-item lines="none">
+              <ion-thumbnail slot="start">
+                <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+              </ion-thumbnail>
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 80%"
+                  ></ion-skeleton-text>
+                </h3>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 60%"
+                  ></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 30%"
+                  ></ion-skeleton-text>
+                </p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="card-list" mode="ios">
+        <ion-card-content>
+          <ion-list>
+            <ion-item lines="none">
+              <ion-thumbnail slot="start">
+                <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+              </ion-thumbnail>
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 80%"
+                  ></ion-skeleton-text>
+                </h3>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 60%"
+                  ></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 30%"
+                  ></ion-skeleton-text>
+                </p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="card-list" mode="ios">
+        <ion-card-content>
+          <ion-list>
+            <ion-item lines="none">
+              <ion-thumbnail slot="start">
+                <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+              </ion-thumbnail>
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 80%"
+                  ></ion-skeleton-text>
+                </h3>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 60%"
+                  ></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 30%"
+                  ></ion-skeleton-text>
+                </p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="card-list" mode="ios">
+        <ion-card-content>
+          <ion-list>
+            <ion-item lines="none">
+              <ion-thumbnail slot="start">
+                <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+              </ion-thumbnail>
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 80%"
+                  ></ion-skeleton-text>
+                </h3>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 60%"
+                  ></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 30%"
+                  ></ion-skeleton-text>
+                </p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="card-list" mode="ios">
+        <ion-card-content>
+          <ion-list>
+            <ion-item lines="none">
+              <ion-thumbnail slot="start">
+                <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+              </ion-thumbnail>
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 80%"
+                  ></ion-skeleton-text>
+                </h3>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 60%"
+                  ></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text
+                    [animated]="true"
+                    style="width: 30%"
+                  ></ion-skeleton-text>
+                </p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+
+    <!-- Bagian List Data -->
+    <ng-container *ngIf="loading == false">
+      <!-- Looping Untuk menampilkan Data -->
+      <ion-card *ngFor="let row of data" class="card-list" mode="ios">
+        <ion-card-content>
+          <ion-item button lines="none">
+            <div class="item-section">
+              <ion-avatar aria-hidden="true" slot="start">
+                <img
+                  alt=""
+                  src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                />
+              </ion-avatar>
+              <div class="data-section">
+                <p>{{ row.nama_lengkap }}</p>
+                <span> {{ row.nim }}</span> &bullet;
+                <span> {{ row.jurusan.nama_jurusan }}</span>
+              </div>
             </div>
-          </div>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-    <ion-card class="card-list" mode="ios">
-      <ion-card-content>
-        <ion-item button lines="none">
-          <div class="item-section">
-            <ion-avatar aria-hidden="true" slot="start">
-              <img
-                alt=""
-                src="https://ionicframework.com/docs/img/demos/avatar.svg"
-              />
-            </ion-avatar>
-            <div class="data-section">
-              <p>Abdul Bahar</p>
-              <span>1122334455</span> &bullet; <span>Informatika</span>
-            </div>
-          </div>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-    <ion-card class="card-list" mode="ios">
-      <ion-card-content>
-        <ion-item button lines="none">
-          <div class="item-section">
-            <ion-avatar aria-hidden="true" slot="start">
-              <img
-                alt=""
-                src="https://ionicframework.com/docs/img/demos/avatar.svg"
-              />
-            </ion-avatar>
-            <div class="data-section">
-              <p>Abdul Bahar</p>
-              <span>1122334455</span> &bullet; <span>Informatika</span>
-            </div>
-          </div>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-    <ion-card class="card-list" mode="ios">
-      <ion-card-content>
-        <ion-item button lines="none">
-          <div class="item-section">
-            <ion-avatar aria-hidden="true" slot="start">
-              <img
-                alt=""
-                src="https://ionicframework.com/docs/img/demos/avatar.svg"
-              />
-            </ion-avatar>
-            <div class="data-section">
-              <p>Abdul Bahar</p>
-              <span>1122334455</span> &bullet; <span>Informatika</span>
-            </div>
-          </div>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-    <ion-card class="card-list" mode="ios">
-      <ion-card-content>
-        <ion-item button lines="none">
-          <div class="item-section">
-            <ion-avatar aria-hidden="true" slot="start">
-              <img
-                alt=""
-                src="https://ionicframework.com/docs/img/demos/avatar.svg"
-              />
-            </ion-avatar>
-            <div class="data-section">
-              <p>Abdul Bahar</p>
-              <span>1122334455</span> &bullet; <span>Informatika</span>
-            </div>
-          </div>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-    <ion-card class="card-list" mode="ios">
-      <ion-card-content>
-        <ion-item button lines="none">
-          <div class="item-section">
-            <ion-avatar aria-hidden="true" slot="start">
-              <img
-                alt=""
-                src="https://ionicframework.com/docs/img/demos/avatar.svg"
-              />
-            </ion-avatar>
-            <div class="data-section">
-              <p>Abdul Bahar</p>
-              <span>1122334455</span> &bullet; <span>Informatika</span>
-            </div>
-          </div>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
   </ng-container>
   <ng-container *ngIf="segment == 'major'">
     <h6 class="title-list">Data Jurusan LP3I Karawang</h6>

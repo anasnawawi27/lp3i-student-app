@@ -1,0 +1,47 @@
+<ion-content class="ion-padding" [fullscreen]="true">
+  <div class="heading-section">
+    <img src="assets/images/logo-lp3i.png" />
+    <h5>Input Data Registrasi</h5>
+  </div>
+
+  <ion-card mode="ios">
+    <ion-card-content>
+      <ion-item>
+        <ion-input label="Username" labelPlacement="stacked"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Password"
+          [type]="showPassword == true ? 'text' : 'password' "
+          labelPlacement="stacked"
+        ></ion-input>
+        <ion-icon
+          (click)="showPassword = !showPassword"
+          slot="end"
+          [name]="showPassword == true ? 'eye-off-outline' : 'eye-outline' "
+        ></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Konfirmasi Password"
+          [type]="showConfirm == true ? 'text' : 'password' "
+          labelPlacement="stacked"
+        ></ion-input>
+        <ion-icon
+          (click)="showConfirm = !showConfirm"
+          slot="end"
+          [name]="showConfirm == true ? 'eye-off-outline' : 'eye-outline' "
+        ></ion-icon>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button class="ion-margin-top ion-margin-bottom" mode="ios" expand="block"
+    >Daftar</ion-button
+  >
+
+  <div class="redirect">
+    <span>Sudah Punya Akun ?</span>
+    <a routerLink="/login">Login Disini</a>
+  </div>
+</ion-content>
