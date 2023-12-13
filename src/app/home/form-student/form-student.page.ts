@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
 import { lastValueFrom } from 'rxjs';
 
@@ -24,7 +25,7 @@ export class FormStudentPage implements OnInit {
   public nim: string = '';
   public gender: string = '';
   public tempat_lahir: string = '';
-  public tanggal_lahir: Date = new Date();
+  public tanggal_lahir: string = '';
   public agama: string = '';
   public alamat: string = '';
   public no_handphone: string = '';
@@ -32,14 +33,26 @@ export class FormStudentPage implements OnInit {
   public jurusan_id: number = 0;
 
   public formLoading: boolean = false;
+  public id: number;
+  public loading: boolean = false;
+  public data: any;
+
+  public date: string = new Date().toISOString();
   constructor(
     private http: HttpClient,
+    private route: ActivatedRoute,
     private navController: NavController,
     private toastController: ToastController
-  ) {}
+  ) {
+    this.id = this.route.snapshot.params['id'] || null;
+  }
 
   ngOnInit() {
     this.getDataJurusan();
+    if (this.id) {
+      this.loading = true;
+      this.getDetailStudent();
+    }
   }
 
   getDataJurusan() {
@@ -53,6 +66,38 @@ export class FormStudentPage implements OnInit {
     ).then((result) => {
       if (result.statusCode == 200) {
         this.majors = result.rows;
+      }
+    });
+  }
+
+  getDetailStudent() {
+    lastValueFrom(
+      this.http.get<any>(
+        'https://students.anasn.dev/api/mahasiswa/' + this.id,
+        {
+          headers: new HttpHeaders({
+            'Access-Control-Allow-Origin': '*',
+          }),
+          params: {},
+        }
+      )
+    ).then((result) => {
+      if (result.statusCode == 200) {
+        this.data = result.data;
+        this.loading = false;
+
+        this.nama_lengkap = this.data.nama_lengkap;
+        this.nim = this.data.nim;
+        this.gender = this.data.gender;
+        this.tempat_lahir = this.data.tempat_lahir;
+        this.tanggal_lahir = this.data.tanggal_lahir;
+        this.agama = this.data.agama;
+        this.alamat = this.data.alamat;
+        this.no_handphone = this.data.no_handphone;
+        this.email = this.data.email;
+        this.jurusan_id = Number(this.data.jurusan_id);
+
+        this.date = new Date(this.data.tanggal_lahir).toISOString();
       }
     });
   }
@@ -88,6 +133,7 @@ export class FormStudentPage implements OnInit {
     //Menyimpan Data
     this.formLoading = true;
     //Payload = Data yang akan kirim ke API
+
     let payload = {
       nama_lengkap: this.nama_lengkap,
       nim: this.nim,
@@ -101,31 +147,81 @@ export class FormStudentPage implements OnInit {
       jurusan_id: this.jurusan_id,
     };
 
-    //Simpan Data ke database
-    lastValueFrom(
-      this.http.post<any>('https://students.anasn.dev/api/mahasiswa', payload, {
-        headers: new HttpHeaders({
-          'Access-Control-Allow-Origin': '*',
-        }),
-      })
-    ).then(async (result) => {
-      //ketika request nya success
-      if (result.statusCode == 201) {
-        //Membuat Toast
-        const toast = await this.toastController.create({
-          message: result.message,
-          duration: 1500,
-          icon: 'checkmark',
-          color: 'success',
-          position: 'top',
-        });
+    // Jika ada id; maka edit data. Jika tidak ada, tambah data
 
-        // untuk menampilkan toast
-        await toast.present();
+    if (this.id) {
+      //Edit Data ke database
+      lastValueFrom(
+        this.http.put<any>(
+          'https://students.anasn.dev/api/mahasiswa/' + this.id,
+          payload,
+          {
+            headers: new HttpHeaders({
+              'Access-Control-Allow-Origin': '*',
+            }),
+          }
+        )
+      ).then(async (result) => {
+        //ketika request nya success
+        if (result.statusCode == 200) {
+          //Membuat Toast
+          const toast = await this.toastController.create({
+            message: result.message,
+            duration: 1500,
+            icon: 'checkmark',
+            color: 'success',
+            position: 'top',
+          });
 
-        //setelah berhasil simpan, kita kembali ke home
-        this.navController.navigateBack('/home');
-      }
-    });
+          // untuk menampilkan toast
+          await toast.present();
+
+          //setelah berhasil simpan, kita kembali ke home
+          this.navController.navigateBack('/home');
+        }
+      });
+    } else {
+      //Simpan Data ke database
+      lastValueFrom(
+        this.http.post<any>(
+          'https://students.anasn.dev/api/mahasiswa',
+          payload,
+          {
+            headers: new HttpHeaders({
+              'Access-Control-Allow-Origin': '*',
+            }),
+          }
+        )
+      ).then(async (result) => {
+        //ketika request nya success
+        if (result.statusCode == 201) {
+          //Membuat Toast
+          const toast = await this.toastController.create({
+            message: result.message,
+            duration: 1500,
+            icon: 'checkmark',
+            color: 'success',
+            position: 'top',
+          });
+
+          // untuk menampilkan toast
+          await toast.present();
+
+          //setelah berhasil simpan, kita kembali ke home
+          this.navController.navigateBack('/home');
+        }
+      });
+    }
+  }
+
+  setBirthday(event: any) {
+    const tanggal = new Date(event.target.value);
+
+    this.tanggal_lahir =
+      tanggal.getFullYear() +
+      '-' +
+      (Number(tanggal.getMonth()) + 1) +
+      '-' +
+      (tanggal.getDate() <= 9 ? '0' + tanggal.getDate() : tanggal.getDate());
   }
 }

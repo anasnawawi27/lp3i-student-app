@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
 import { FormStudentPage } from './form-student/form-student.page';
 import { FormMajorPage } from './form-major/form-major.page';
+import { DetailStudentPage } from './detail-student/detail-student.page';
 
 const routes: Routes = [
   {
@@ -16,6 +17,14 @@ const routes: Routes = [
   {
     path: 'major/form',
     component: FormMajorPage,
+  },
+  {
+    path: 'student/:id',
+    component: DetailStudentPage,
+  },
+  {
+    path: 'student/form/:id',
+    component: FormStudentPage,
   },
 ];
 

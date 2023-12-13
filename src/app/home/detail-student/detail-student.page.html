@@ -1,0 +1,126 @@
+<ion-header mode="md" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detail Mahasiswa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <div *ngIf="loading == true" class="ion-padding ion-text-center">
+    <ion-spinner name="lines" color="secondary"></ion-spinner>
+  </div>
+
+  <ion-card *ngIf="loading == false" mode="ios" class="card-input">
+    <ion-card-content>
+      <ion-item class="ion-margin-bottom">
+        <div>
+          <small>Nama Lengkap</small>
+          <h6 style="margin-top: 10px; margin-bottom: 5px">
+            {{ data.nama_lengkap }}
+          </h6>
+        </div>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <div>
+          <small>NIM</small>
+          <h6 style="margin-top: 10px; margin-bottom: 5px">{{ data.nim }}</h6>
+        </div>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <div>
+          <small>Gender</small>
+          <h6 style="margin-top: 10px; margin-bottom: 5px">
+            {{ data.gender }}
+          </h6>
+        </div>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <div>
+          <small>Jurusan</small>
+          <h6 style="margin-top: 10px; margin-bottom: 5px">
+            {{ data.jurusan.nama_jurusan }}
+          </h6>
+        </div>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <div>
+          <small>Tempat Lahir</small>
+          <h6 style="margin-top: 10px; margin-bottom: 5px">
+            {{ data.tempat_lahir }}
+          </h6>
+        </div>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <div>
+          <small>Tanggal Lahir</small>
+          <h6 style="margin-top: 10px; margin-bottom: 5px">
+            {{ data.tanggal_lahir }}
+          </h6>
+        </div>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <div>
+          <small>Agama</small>
+          <h6 style="margin-top: 10px; margin-bottom: 5px">{{ data.agama }}</h6>
+        </div>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <div>
+          <small>Nomor Handphone</small>
+          <h6 style="margin-top: 10px; margin-bottom: 5px">
+            {{ data.no_handphone }}
+          </h6>
+        </div>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <div>
+          <small>Email</small>
+          <h6 style="margin-top: 10px; margin-bottom: 5px">{{ data.email }}</h6>
+        </div>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <div>
+          <small>Alamat</small>
+          <h6 style="margin-top: 10px; margin-bottom: 5px">
+            {{ data.alamat }}
+          </h6>
+        </div>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-footer *ngIf="loading == false" mode="ios">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="onDelete(data.id)" color="danger" expand="block">
+            Hapus
+            <ion-icon slot="end" name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button
+            [routerLink]="'/home/student/form/' + data.id"
+            color="secondary"
+            expand="block"
+          >
+            Edit
+            <ion-icon slot="end" name="pencil-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

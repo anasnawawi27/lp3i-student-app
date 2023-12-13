@@ -19,6 +19,11 @@ export class HomePage implements OnInit {
     this.getAllData();
   }
 
+  ionViewWillEnter() {
+    this.loading = true;
+    this.getAllData();
+  }
+
   getAllData() {
     lastValueFrom(
       this.http.get<any>('https://students.anasn.dev/api/mahasiswa', {

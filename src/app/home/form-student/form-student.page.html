@@ -8,130 +8,142 @@
 </ion-header>
 
 <ion-content class="ion-padding" [fullscreen]="true">
-  <ion-card mode="ios" class="card-input">
-    <ion-card-content>
-      <!-- Inputan Nama -->
-      <ion-item>
-        <ion-input
-          [(ngModel)]="nama_lengkap"
-          label="Nama Lengkap"
-          labelPlacement="stacked"
-        ></ion-input>
-      </ion-item>
+  <div *ngIf="loading == true" class="ion-padding ion-text-center">
+    <ion-spinner name="lines" color="secondary"></ion-spinner>
+  </div>
 
-      <!-- Inputan NIM -->
-      <ion-item>
-        <ion-input
-          [(ngModel)]="nim"
-          label="NIM"
-          labelPlacement="stacked"
-        ></ion-input>
-      </ion-item>
+  <ng-container *ngIf="loading == false">
+    <ion-card mode="ios" class="card-input">
+      <ion-card-content>
+        <!-- Inputan Nama -->
+        <ion-item>
+          <ion-input
+            [(ngModel)]="nama_lengkap"
+            label="Nama Lengkap"
+            labelPlacement="stacked"
+          ></ion-input>
+        </ion-item>
 
-      <!-- Inputan Gender -->
-      <ion-item>
-        <ion-select
-          [(ngModel)]="gender"
-          label="Gender"
-          label-placement="stacked"
-        >
-          <ion-select-option value="Laki-Laki">Laki-Laki</ion-select-option>
-          <ion-select-option value="Perempuan">Perempuan</ion-select-option>
-        </ion-select>
-      </ion-item>
+        <!-- Inputan NIM -->
+        <ion-item>
+          <ion-input
+            [(ngModel)]="nim"
+            label="NIM"
+            labelPlacement="stacked"
+          ></ion-input>
+        </ion-item>
 
-      <!-- Inputan Jurusan -->
-      <ion-item>
-        <ion-select
-          [(ngModel)]="jurusan_id"
-          label="Jurusan"
-          label-placement="stacked"
-        >
-          <ion-select-option *ngFor="let major of majors" [value]="major.id"
-            >{{ major.nama_jurusan }}</ion-select-option
+        <!-- Inputan Gender -->
+        <ion-item>
+          <ion-select
+            [(ngModel)]="gender"
+            label="Gender"
+            label-placement="stacked"
           >
-        </ion-select>
-      </ion-item>
+            <ion-select-option value="Laki-Laki">Laki-Laki</ion-select-option>
+            <ion-select-option value="Perempuan">Perempuan</ion-select-option>
+          </ion-select>
+        </ion-item>
 
-      <!-- Inputan Tempat Lahir -->
-      <ion-item>
-        <ion-input
-          [(ngModel)]="tempat_lahir"
-          label="Tempat Lahir"
-          labelPlacement="stacked"
-        ></ion-input>
-      </ion-item>
-
-      <!-- Inputan Tanggal Lahir -->
-      <ion-item>
-        <ion-label style="font-size: 12px; font-family: Poppins"
-          >Tanggal Lahir</ion-label
-        >
-        <ion-datetime-button datetime="birthday"></ion-datetime-button>
-        <ion-modal [keepContentsMounted]="true">
-          <ng-template>
-            <ion-datetime
-              locale="id-ID"
-              slot="end"
-              presentation="date"
-              id="birthday"
-              [showDefaultButtons]="true"
-              doneText="Pilih"
-              cancelText="Batal"
-            ></ion-datetime>
-          </ng-template>
-        </ion-modal>
-      </ion-item>
-
-      <!-- Inputan Agaman -->
-      <ion-item>
-        <ion-select [(ngModel)]="agama" label="Agama" label-placement="stacked">
-          <ion-select-option
-            *ngFor="let religion of religions"
-            [value]="religion.value"
-            >{{ religion.text }}</ion-select-option
+        <!-- Inputan Jurusan -->
+        <ion-item>
+          <ion-select
+            [(ngModel)]="jurusan_id"
+            label="Jurusan"
+            label-placement="stacked"
           >
-        </ion-select>
-      </ion-item>
+            <ion-select-option *ngFor="let major of majors" [value]="major.id"
+              >{{ major.nama_jurusan }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
 
-      <!-- Inputan Nomor Handphone -->
-      <ion-item>
-        <ion-input
-          [(ngModel)]="no_handphone"
-          label="Nomor Handphone"
-          labelPlacement="stacked"
-        ></ion-input>
-      </ion-item>
+        <!-- Inputan Tempat Lahir -->
+        <ion-item>
+          <ion-input
+            [(ngModel)]="tempat_lahir"
+            label="Tempat Lahir"
+            labelPlacement="stacked"
+          ></ion-input>
+        </ion-item>
 
-      <!-- Inputan Email -->
-      <ion-item>
-        <ion-input
-          [(ngModel)]="email"
-          label="Email"
-          type="email"
-          labelPlacement="stacked"
-        ></ion-input>
-      </ion-item>
+        <!-- Inputan Tanggal Lahir -->
+        <ion-item>
+          <ion-label style="font-size: 12px; font-family: Poppins"
+            >Tanggal Lahir</ion-label
+          >
+          <ion-datetime-button datetime="birthday"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime
+                locale="id-ID"
+                slot="end"
+                presentation="date"
+                id="birthday"
+                [showDefaultButtons]="true"
+                doneText="Pilih"
+                cancelText="Batal"
+                [(ngModel)]="date"
+                (ionChange)="setBirthday($event)"
+              ></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
 
-      <!-- Inputan Alamat -->
-      <ion-item>
-        <ion-textarea
-          [(ngModel)]="alamat"
-          label="Alamat"
-          [autoGrow]="true"
-          labelPlacement="stacked"
-        ></ion-textarea>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+        <!-- Inputan Agaman -->
+        <ion-item>
+          <ion-select
+            [(ngModel)]="agama"
+            label="Agama"
+            label-placement="stacked"
+          >
+            <ion-select-option
+              *ngFor="let religion of religions"
+              [value]="religion.value"
+              >{{ religion.text }}</ion-select-option
+            >
+          </ion-select>
+        </ion-item>
 
-  <ion-button
-    [disabled]="formLoading == true"
-    (click)="onSave()"
-    mode="ios"
-    expand="block"
-  >
-    Simpan
-    <ion-spinner *ngIf="formLoading == true" name="crescent"></ion-spinner>
-  </ion-button>
+        <!-- Inputan Nomor Handphone -->
+        <ion-item>
+          <ion-input
+            [(ngModel)]="no_handphone"
+            label="Nomor Handphone"
+            labelPlacement="stacked"
+          ></ion-input>
+        </ion-item>
+
+        <!-- Inputan Email -->
+        <ion-item>
+          <ion-input
+            [(ngModel)]="email"
+            label="Email"
+            type="email"
+            labelPlacement="stacked"
+          ></ion-input>
+        </ion-item>
+
+        <!-- Inputan Alamat -->
+        <ion-item>
+          <ion-textarea
+            [(ngModel)]="alamat"
+            label="Alamat"
+            [autoGrow]="true"
+            labelPlacement="stacked"
+          ></ion-textarea>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button
+      [disabled]="formLoading == true"
+      (click)="onSave()"
+      mode="ios"
+      expand="block"
+    >
+      Simpan
+      <ion-spinner *ngIf="formLoading == true" name="crescent"></ion-spinner>
+    </ion-button>
+  </ng-container>
 </ion-content>

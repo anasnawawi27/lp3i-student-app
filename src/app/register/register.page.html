@@ -7,10 +7,22 @@
   <ion-card mode="ios">
     <ion-card-content>
       <ion-item>
-        <ion-input label="Username" labelPlacement="stacked"></ion-input>
+        <ion-input
+          [(ngModel)]="fullname"
+          label="Nama Lengkap"
+          labelPlacement="stacked"
+        ></ion-input>
       </ion-item>
       <ion-item>
         <ion-input
+          [(ngModel)]="username"
+          label="Username"
+          labelPlacement="stacked"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          [(ngModel)]="password"
           label="Password"
           [type]="showPassword == true ? 'text' : 'password' "
           labelPlacement="stacked"
@@ -23,6 +35,7 @@
       </ion-item>
       <ion-item>
         <ion-input
+          [(ngModel)]="confirmPassword"
           label="Konfirmasi Password"
           [type]="showConfirm == true ? 'text' : 'password' "
           labelPlacement="stacked"
@@ -36,9 +49,16 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-button class="ion-margin-top ion-margin-bottom" mode="ios" expand="block"
-    >Daftar</ion-button
-  >
+  <ion-button
+    (click)="onRegister()"
+    [disabled]="formLoading == true"
+    class="ion-margin-top ion-margin-bottom"
+    mode="ios"
+    expand="block"
+    >Daftar
+
+    <ion-spinner *ngIf="formLoading == true" name="crescent"></ion-spinner>
+  </ion-button>
 
   <div class="redirect">
     <span>Sudah Punya Akun ?</span>

@@ -186,7 +186,11 @@
       <!-- Looping Untuk menampilkan Data -->
       <ion-card *ngFor="let row of data" class="card-list" mode="ios">
         <ion-card-content>
-          <ion-item button lines="none">
+          <ion-item
+            [routerLink]="'/home/student/' + row.id"
+            button
+            lines="none"
+          >
             <div class="item-section">
               <ion-avatar aria-hidden="true" slot="start">
                 <img
