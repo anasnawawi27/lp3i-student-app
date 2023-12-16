@@ -13,6 +13,8 @@ export class HomePage implements OnInit {
   public loading: boolean = true;
   public data: Array<any> = [];
 
+  public account: any = JSON.parse(localStorage.getItem('akun') ?? '{}');
+
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {

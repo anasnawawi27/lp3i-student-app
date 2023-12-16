@@ -102,7 +102,7 @@ export class RegisterPage implements OnInit {
           await toast.present();
 
           //setelah berhasil simpan, kita kembali ke home
-          this.navController.navigateForward('/home');
+          this.navController.navigateForward('/login');
         }
       })
       .finally(() => {
